@@ -58,15 +58,21 @@ def pre_proc(r,nm,choice):
         if "created" in i :
             di.append(i[1:])
     di=[ast.literal_eval(i) for i in di]
-    title=di[0]['document']['title']
-    if title=='':
-        title=nm
-    bindings={}
-    for i in di:
-        bindings[i['target'][0]['selector'][1]['exact']]=i['text'] if "text" in list(i.keys()) else ""
-    methods={'.pdf':pdf,'.md':mkd}
 
-    return(methods[choice](title,bindings))
+    try:
+        title=di[0]['document']['title']
+    except IndexError:
+        read=False
+    if read:
+        if title=='':
+            title=nm
+        bindings={}
+        for i in di:
+            bindings[i['target'][0]['selector'][1]['exact']]=i['text'] if "text" in list(i.keys()) else ""
+        methods={'.pdf':pdf,'.md':mkd}
+        return(methods[choice](title,bindings))
+    else:
+        return(read)
 
 
 with header:
@@ -92,7 +98,11 @@ with header:
             bytes_data = uploaded_file.getvalue()
 
             outputdata=pre_proc(string_data,name,form)
-            st.download_button(label='Download: Extracted-'+name.split(".")[0]+form,data=outputdata,file_name="Extracted-"+name.split(".")[0]+form,disabled=uploaded_file is None)
+
+            if not outputdata:
+                st.write("Incompatible File")
+            else:
+                st.download_button(label='Download: Extracted-'+name.split(".")[0]+form,data=outputdata,file_name="Extracted-"+name.split(".")[0]+form,disabled=uploaded_file is None)
 
     with inp:
         with st.expander("View input data"):
