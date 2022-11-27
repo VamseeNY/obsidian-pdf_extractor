@@ -2,7 +2,7 @@
 
 This is a tool for the Obsidian Plugin- Obsidian-Annotator (https://github.com/elias-sundqvist/obsidian-annotator). 
 
-Export your highlights and annotations created using the Obsidian Annotator to a PDF or markdown file.
+Export your highlights and annotations created using Obsidian Annotator to a PDF or markdown file.
 
 Steps:
 * Upload your obsidian note containing the annotation-target
