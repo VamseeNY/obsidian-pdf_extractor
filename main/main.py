@@ -18,6 +18,7 @@ def pdf(title,bindings):
 
     pdf = PDF('P','mm','A4')
     pdf.add_page()
+    pdf.set_doc_option('core_fonts_encoding', 'utf-8') 
     pdf.set_font("times",'', size = 15)
     pdf.set_auto_page_break(auto=True,margin=10)
     pdf.cell(0,20,title,ln=True,align='C')
