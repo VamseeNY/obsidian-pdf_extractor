@@ -51,6 +51,7 @@ def mkd(title,bindings):
     
 
 def pre_proc(r,nm,choice):
+    read=True
     text = ''.join(BeautifulSoup(r).findAll(text=True))
     a=text.split("\n")
     di=[]
